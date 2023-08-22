@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="js/index.js" type="module" defer></script>
+    <title>Jogo de Advinhação</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Jogo de Advinhação</h1>
+
+      <label for="nivelDificuldade">Nível de Dificuldade</label>
+      <select id="nivelDificuldade">
+        <option value="1">Fácil</option>
+        <option value="2">Médio</option>
+        <option value="3">Difícil</option>
+      </select>
+
+      <div>
+        <p>Escolha um número de 1 a 20</p>
+        <input type="number" id="inputNumeroChute" />
+      </div>
+
+      <br />
+      <div>
+        <button id="btnVerificarChute">Verificar Chute</button>
+        <button id="btnNovoJogo">Novo Jogo</button>
+      </div>
+
+      <br />
+      <label id="labelMensagem"></label>
+    </div>
+  </body>
+</html>
