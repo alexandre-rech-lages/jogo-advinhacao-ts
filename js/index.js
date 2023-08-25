@@ -1,2 +1,3 @@
 import { JogoAdvinhacaoTela } from "./jogo-advinhacao.tela.js";
-document.addEventListener("onload", () => new JogoAdvinhacaoTela());
+window.addEventListener("load", () => new JogoAdvinhacaoTela());
+//# sourceMappingURL=index.js.map
