@@ -2,11 +2,12 @@ import { JogoAdvinhacao } from "./jogo-advinhacao.js";
 import { ResultadoChuteEnum } from "./resultado-chute.js";
 export class JogoAdvinhacaoTela {
     constructor() {
+        this.pnlTeclado = document.getElementById("pnlTeclado");
         this.btnVerificarChute = document.getElementById("btnVerificarChute");
         this.btnNovoJogo = document.getElementById("btnNovoJogo");
-        this.labelMensagemFinal = document.getElementById("labelMensagemFinal");
-        this.inputNivelDificuldade = document.getElementById("nivelDificuldade");
+        this.inputNivelDificuldade = document.getElementById("inputNivelDificuldade");
         this.inputNumeroChute = document.getElementById("inputNumeroChute");
+        this.labelMensagemFinal = document.getElementById("labelMensagemFinal");
         this.jogo = new JogoAdvinhacao(this.obtemDificuldade());
         this.registrarEventos();
     }
@@ -15,6 +16,8 @@ export class JogoAdvinhacaoTela {
         return this.inputNivelDificuldade.options[indice].value;
     }
     registrarEventos() {
+        for (const botao of this.pnlTeclado.children)
+            botao.addEventListener("click", this.digitarLetra.bind(this));
         this.btnVerificarChute.addEventListener("click", () => {
             this.verificarChute();
         });
@@ -26,6 +29,11 @@ export class JogoAdvinhacaoTela {
             const selectedValue = event.target.value;
             this.novoJogo(selectedValue);
         });
+    }
+    digitarLetra(event) {
+        const numero = event.target.textContent;
+        if (numero)
+            this.inputNumeroChute.value = numero;
     }
     verificarChute() {
         const numeroChute = parseInt(this.inputNumeroChute.value);

@@ -9,6 +9,10 @@ body {
 }
 
 .container {
+  
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
   background-color: #ffffff;
   padding: 20px;
@@ -16,10 +20,46 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 
+
+.grid-teclado {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, 35px);
+  gap: 2.2px;
+}
+
+button {
+  height: 35px;
+
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.grid-teclado>.btn-enter {
+  grid-column: 2 span;
+  margin-top: 3px;
+  margin-left: 3px;
+}
+
+.grid-teclado>.btn-reiniciar {
+  grid-column: 3 span;
+  margin-top: 3px;
+}
+
+
 .cor-perdeu{
   color: #ee1414 !important;
 }
 
 .cor-acertou{
   color: #12d245 !important;
+}
+
+.margem-top{
+  margin-top: 15px;
 }
