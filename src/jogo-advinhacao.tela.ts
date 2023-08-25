@@ -1,9 +1,10 @@
 import { JogoAdvinhacao } from "./jogo-advinhacao.js";
+import { ResultadoChuteEnum } from "./resultado-chute.js";
 
 export class JogoAdvinhacaoTela {
   btnVerificarChute: HTMLButtonElement;
   btnNovoJogo: HTMLButtonElement;
-  labelMensagem: HTMLLabelElement;
+  labelMensagemFinal: HTMLLabelElement;
   inputNivelDificuldade: HTMLSelectElement;
   inputNumeroChute: HTMLInputElement;
   jogo: JogoAdvinhacao;
@@ -11,7 +12,7 @@ export class JogoAdvinhacaoTela {
   constructor() {
     this.btnVerificarChute = document.getElementById("btnVerificarChute") as HTMLButtonElement;
     this.btnNovoJogo = document.getElementById("btnNovoJogo") as HTMLButtonElement;
-    this.labelMensagem = document.getElementById("labelMensagem") as HTMLLabelElement;
+    this.labelMensagemFinal = document.getElementById("labelMensagemFinal") as HTMLLabelElement;
     this.inputNivelDificuldade = document.getElementById("nivelDificuldade") as HTMLSelectElement;
     this.inputNumeroChute = document.getElementById("inputNumeroChute") as HTMLInputElement;
 
@@ -45,16 +46,28 @@ export class JogoAdvinhacaoTela {
     const numeroChute: number = parseInt(this.inputNumeroChute.value);
 
     if (isNaN(numeroChute)) {
-      this.labelMensagem.textContent = "Chute inválido";
+      this.labelMensagemFinal.textContent = "Chute inválido";
       return;
     }
 
-    this.labelMensagem.textContent = this.jogo.Chutar(numeroChute);
+    const resultadoChute = this.jogo.Chutar(numeroChute) ;
+
+    if (resultadoChute == ResultadoChuteEnum.acertou) {
+      this.labelMensagemFinal.classList.add("cor-acertou"); 
+    } else if (resultadoChute == ResultadoChuteEnum.perdeu) {
+      this.labelMensagemFinal.classList.add("cor-perdeu"); 
+    }
+    else{
+      this.labelMensagemFinal.classList.remove("cor-acertou"); 
+      this.labelMensagemFinal.classList.remove("cor-perdeu"); 
+    }
+
+    this.labelMensagemFinal.textContent = this.jogo.mensagem;
   }
 
   novoJogo(nivelDificuldade : string): void {
     this.jogo = new JogoAdvinhacao(nivelDificuldade);
     this.inputNumeroChute.value = "";
-    this.labelMensagem.textContent = "";
+    this.labelMensagemFinal.textContent = "";
   }
 }

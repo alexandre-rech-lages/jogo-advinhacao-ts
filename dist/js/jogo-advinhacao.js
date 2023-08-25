@@ -1,8 +1,9 @@
+import { ResultadoChuteEnum } from "./resultado-chute.js";
 export class JogoAdvinhacao {
     constructor(nivelDificuldade) {
         this.numeroSecreto = 0;
         this.quantidadeChutes = 0;
-        this.totalDePontos = 0;
+        this.totalDePontos = 100;
         this.totalDeTentativas = 0;
         this.numeroSecreto = this.ObterNumeroSecreto();
         switch (nivelDificuldade) {
@@ -23,21 +24,26 @@ export class JogoAdvinhacao {
         const menor = numeroChute < this.numeroSecreto;
         let pontosPerdidos = Math.abs((numeroChute - this.numeroSecreto) / 2);
         this.totalDePontos = this.totalDePontos - pontosPerdidos;
-        let mensagem = "";
         if (acertou) {
-            mensagem = "Parabéns, você acertou! O seu número de pontos foi: " + this.totalDePontos;
+            this.mensagem = `Você ganhou e a sua pontuação foi: ${this.totalDePontos} pontos`;
+            this.resultadoChute = ResultadoChuteEnum.acertou;
         }
         else if (menor) {
-            mensagem = "Seu chute foi menor que o número secreto";
+            this.mensagem = `${numeroChute} é menor que o número secreto`;
+            this.resultadoChute = ResultadoChuteEnum.tenteNovamente;
         }
         else {
-            mensagem = "Seu chute foi maior que o número secreto";
+            this.mensagem = `${numeroChute} é maior que o número secreto`;
+            this.resultadoChute = ResultadoChuteEnum.tenteNovamente;
         }
-        if (this.quantidadeChutes >= this.totalDeTentativas)
-            mensagem = "Que azar! Tente novamente. O seu número de pontos foi: " + this.totalDePontos;
-        return mensagem;
+        if (this.quantidadeChutes >= this.totalDeTentativas) {
+            this.mensagem = `Você perdeu e a sua pontuação foi: ${this.totalDePontos} pontos`;
+            this.resultadoChute = ResultadoChuteEnum.perdeu;
+        }
+        return this.resultadoChute;
     }
     ObterNumeroSecreto() {
         return Math.floor(Math.random() * 20) + 1;
     }
 }
+//# sourceMappingURL=jogo-advinhacao.js.map
